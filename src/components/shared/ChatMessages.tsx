@@ -6,7 +6,11 @@ import { useChatScroll } from "@/hooks/useChatScroll";
 import { cn } from "@/lib/utils";
 import { useEffect, useRef, useState } from "react";
 
-export default function Messages({ className = "" }: { className?: string }) {
+export default function ChatMessages({
+  className = "",
+}: {
+  className?: string;
+}) {
   const chatRef = useRef<HTMLDivElement | null>(null);
   const bottomRef = useRef<HTMLDivElement | null>(null);
 
@@ -39,7 +43,7 @@ export default function Messages({ className = "" }: { className?: string }) {
       <div
         ref={chatRef}
         className={cn(
-          "relative flex flex-col gap-4 overflow-y-auto",
+          "custom-scrollbar-vertical relative flex flex-col gap-4 overflow-y-auto",
           className
         )}
       >

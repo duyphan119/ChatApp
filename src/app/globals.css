@@ -56,4 +56,20 @@
   body {
     @apply bg-background text-foreground;
   }
+
+  .custom-scrollbar-vertical::-webkit-scrollbar {
+    @apply flex touch-none select-none transition-colors h-full w-2.5 border-l border-l-transparent p-px;
+  }
+  .custom-scrollbar-vertical:hover::-webkit-scrollbar-thumb {
+    @apply bg-border;
+  }
+  .custom-scrollbar-vertical::-webkit-scrollbar-thumb {
+    @apply bg-transparent rounded-full relative;
+  }
+  .custom-scrollbar-vertical::-webkit-scrollbar-button {
+    @apply hidden;
+  }
+  .custom-scrollbar-horizontal::-webkit-scrollbar {
+    @apply flex touch-none select-none transition-colors h-2.5 flex-col border-t border-t-transparent p-px;
+  }
 }

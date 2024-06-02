@@ -21,9 +21,10 @@ const UserSchema = new Schema({
   lastName: {
     type: String,
   },
-  creditBalance: {
-    type: Number,
-    default: 10,
+  friends: {
+    type: [Schema.Types.ObjectId],
+    ref: "User",
+    default: [],
   },
 });
 
