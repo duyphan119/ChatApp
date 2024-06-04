@@ -73,20 +73,47 @@ export async function deleteUser(clerkId: string) {
   }
 }
 
-// USE CREDITS
-export async function updateCredits(userId: string, creditFee: number) {
+// MAKE FRIENDS
+export async function makeFriends(user1Id: string, user2Id: string) {
   try {
     await connectToDatabase();
 
-    const updatedUserCredits = await User.findOneAndUpdate(
-      { _id: userId },
-      { $inc: { creditBalance: creditFee } },
+    const updatedUser1 = await User.findOneAndUpdate(
+      { _id: user1Id },
+      {
+        $push: {
+          friends: user2Id,
+        },
+      },
+      { new: true }
+    );
+    const updatedUser2 = await User.findOneAndUpdate(
+      { _id: user2Id },
+      {
+        $push: {
+          friends: user1Id,
+        },
+      },
       { new: true }
     );
 
-    if (!updatedUserCredits) throw new Error("User credits update failed");
+    if (!updatedUser1 || !updatedUser2) throw new Error("Make friends failed");
 
-    return JSON.parse(JSON.stringify(updatedUserCredits));
+    return JSON.parse(JSON.stringify({ updatedUser1, updatedUser2 }));
+  } catch (error) {
+    handleError(error);
+  }
+}
+
+// SEARCH USERS
+export async function searchUsers(keyword: string) {
+  try {
+    await connectToDatabase();
+    const users = await User.find({
+      firstName: new RegExp(keyword, "i"),
+    });
+
+    return JSON.parse(JSON.stringify(users));
   } catch (error) {
     handleError(error);
   }

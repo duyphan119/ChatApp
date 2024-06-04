@@ -8,15 +8,17 @@ export default function UserSearchResult({ items = [] }: { items?: any[] }) {
       {items.length === 0 ? (
         <div className="p-4">No results found</div>
       ) : (
-        items.map((item, index) => (
-          <div className="relative flex items-center p-2 gap-2">
+        items.map((item) => (
+          <div key={item._id} className="relative flex items-center p-2 gap-2">
             <div className="relative">
               <Avatar>
                 <AvatarImage src="https://github.com/shadcn.png" alt="avatar" />
                 <AvatarFallback>CN</AvatarFallback>
               </Avatar>
             </div>
-            <div className="">User{index}</div>
+            <div className="">
+              {item.firstName} {item.lastName}
+            </div>
             <Button
               size="icon"
               title="Make friends"

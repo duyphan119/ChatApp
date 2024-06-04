@@ -1,7 +1,13 @@
 import Conversations from "@/components/shared/Conversations";
 import UserSearch from "@/components/shared/UserSearch";
+import { getUserById } from "@/lib/actions/user.actions";
+import { auth } from "@clerk/nextjs/server";
 
-export default function Home() {
+export default async function Home() {
+  const { userId } = auth();
+  console.log(userId);
+  // const user = await getUserById(userId!);
+  // console.log(user);
   return (
     <>
       <div className="max-w-xl mx-auto space-y-8">

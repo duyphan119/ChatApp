@@ -2,6 +2,7 @@
 
 import UserSearchResult from "@/components/shared/UserSearchResult";
 import { Input } from "@/components/ui/input";
+import { searchUsers } from "@/lib/actions/user.actions";
 import { Search } from "lucide-react";
 import { ChangeEvent, useEffect, useState } from "react";
 
@@ -10,15 +11,17 @@ export default function UserSearch() {
   const [result, setResult] = useState<any[]>([]);
   const [resultVisible, setResultVisible] = useState<boolean>(false);
 
-  const onChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const onChange = async (e: ChangeEvent<HTMLInputElement>) => {
     setText(e.target.value);
   };
 
   useEffect(() => {
-    const timeoutId = setTimeout(() => {
+    const timeoutId = setTimeout(async () => {
       setResultVisible(text !== "");
       if (text) {
-        setResult([1, 3, 5, 7, 8, 9, 10, 11]);
+        const users = await searchUsers(text);
+        console.log(users);
+        setResult(users);
       } else {
         setResult([]);
       }
